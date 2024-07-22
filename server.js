@@ -11,11 +11,25 @@ app.get("/", function(req, res) {
 
 
 app.post("/", function(req, res) {
-  var num1 = req.body.num1;
-  var num2 = req.body.num2;
+  var num1 = Number(req.body.num1);
+  var num2 = Number(req.body.num2);
+  var operation = req.body.operation;
+  var result;
 
-  var result = Number(num1) + Number(num2);
-  res.send(`The result of the calculation is ${result}`);
+  if (operation === 'add') {
+    result = num1 + num2;
+  } else if (operation === 'subtract') {
+    result = num1 - num2;
+  } else if (operation === 'multiply') {
+    result = num1 * num2;
+  } else if (operation === 'divide') {
+    result = num1 / num2;
+  } else {
+    return res.status(400).send("Invalid operation");
+  }
+
+  res.send("The result of the calculation is " + result);
+
 });
 
 app.get("/bmicalculator", function(req, res) {
